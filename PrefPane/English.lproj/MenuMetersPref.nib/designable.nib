@@ -1117,8 +1117,8 @@
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
-                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="355">
-                        <rect key="frame" x="-3" y="-1" width="600" height="14"/>
+                    <textField verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="NO" id="355">
+                        <rect key="frame" x="-3" y="2" width="600" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="center" title="MenuMeters, © 2002-2014 Alex Harper (http://www.ragingmenace.com)" id="1078">
                             <font key="font" metaFont="system" size="10"/>

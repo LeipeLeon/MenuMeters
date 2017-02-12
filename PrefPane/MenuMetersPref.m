@@ -128,11 +128,9 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 	// On first load set the version string with a clickable link
         //NSString*webpageURL=@"http://ragingmenace.com/";
         NSString*webpageURL=@"http://member.ipmu.jp/yuji.tachikawa/MenuMetersElCapitan/";
-	NSMutableAttributedString *versionInfoString =
-		[[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleGetInfoString"];
 	NSMutableAttributedString *linkedVersionString =
 		[[NSMutableAttributedString alloc] initWithString:
-		  [NSString stringWithFormat:@"%@ (%@)", versionInfoString,webpageURL]];
+          [NSString stringWithFormat:@"%@ (%@)", self.getAppVersionNumber, webpageURL]];
 	[linkedVersionString beginEditing];
 	[linkedVersionString setAlignment:NSCenterTextAlignment range:NSMakeRange(0, [linkedVersionString length])];
 	[linkedVersionString addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -148,7 +146,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 											[NSNumber numberWithInt:NSSingleUnderlineStyle],
 											NSUnderlineStyleAttributeName,
 											nil]
-						range:NSMakeRange([versionInfoString length] + 2, [webpageURL length])];
+						range:NSMakeRange([self.getAppVersionNumber length] + 2, [webpageURL length])];
 	[linkedVersionString endEditing];
 	// See QA1487
 	[versionDisplay setAllowsEditingTextAttributes:YES];
@@ -999,5 +997,19 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 	return (NSDictionary *)CFBridgingRelease(SCDynamicStoreCopyValue(scSession, (CFStringRef)key));
 
 } // sysconfigValueForKey
+
+- (NSString *) getAppVersionNumber;
+{
+    NSString *appName;
+    NSString *version;
+    NSString *info;
+
+    appName = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleExecutable"];
+    info    = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleGetInfoString"];
+    version = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"];;
+    
+    return [NSString stringWithFormat:@"%@ %@, %@", appName, version, info];
+
+} // getAppVersionNumber
 
 @end
